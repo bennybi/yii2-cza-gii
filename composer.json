@@ -17,7 +17,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-    	"cza/yii2-base": "*",
+    	"cza/yii2-base": "*"
     },
     "autoload": {
         "psr-4": {
