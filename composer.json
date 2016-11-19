@@ -1,0 +1,28 @@
+{
+    "name": "cza/yii2-gii",
+    "description": "CCA2.0 utils for Yii2",
+    "keywords": ["yii2", "yii2-base"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/bennybi/yii2-cza-gii/issues?state=open",
+        "source": "https://github.com/bennybi/yii2-cza-gii"
+    },
+    "authors": [
+        {
+            "name": "Ben Bi",
+            "email": "jianbinbi@gmail.com",
+            "homepage": "http://api.cciza.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "cza\\gii\\": ""
+        }
+    },
+    "extra": {
+    }
+}
