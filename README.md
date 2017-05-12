@@ -1,2 +1,2 @@
 # yii2-cza-gii
-CCIZA Gii For Yii2
+CZA Gii For Yii2
