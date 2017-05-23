@@ -24,5 +24,15 @@ use cza\base\widgets\ui\common\part\EntityDetail as DetailWidget;
  */
  
 class EntityDetail extends DetailWidget {
-
+    <?php if($generator->withTranslationTabs): ?>
+        public $withTranslationTabs = true;
+    <?php else:?>
+        public $withTranslationTabs = false;
+    <?php endif?>
+        
+    <?php if($generator->withProfileTab): ?>
+        public $withProfileTab = true;
+    <?php else:?>
+        public $withProfileTab = false;
+    <?php endif?>
 }

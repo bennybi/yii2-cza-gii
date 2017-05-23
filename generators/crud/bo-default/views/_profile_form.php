@@ -7,8 +7,18 @@ use yii\helpers\StringHelper;
 /* @var $generator yii\gii\generators\crud\Generator */
 
 /* @var $model \yii\db\ActiveRecord */
-$model = new $generator->modelClass();
-$safeAttributes = $model->safeAttributes();
+$modelClass = $generator->modelClass;
+$modelProfileClass = $generator->modelClass . 'Profile';
+$model = new $modelClass();
+$profileModel = new $modelProfileClass();
+$safeAttributes = [];
+$entityModelSafeAttributes = $profileModel->safeAttributes();
+$transSafeAttributes = $profileModel->safeAttributes();
+$safeAttributes = array_intersect($transSafeAttributes, $entityModelSafeAttributes);
+
+$tableSchema = $modelProfileClass::getTableSchema();
+$columnNames = $tableSchema->getColumnNames();
+
 if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
 }
@@ -21,13 +31,17 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use cza\base\widgets\ui\adminlte2\InfoBox;
 use cza\base\models\statics\EntityModelStatus;
+use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 $messageName = $model->getMessageName();
 ?>
 
+<?php echo "<?php"; ?> Pjax::begin(['id' => $model->getPjaxName(), 'enablePushState' => false])<?php echo "?>\n"; ?>
+
 <?php echo "<?php\n"; ?>
 $form = ActiveForm::begin([
-'action' => ['edit', 'id' => $model->id],
+'action' => ['profile-save', 'id' => $model->id],
 'options' => [
 'id' => $model->getBaseFormName(),
 'data-pjax' => true,
@@ -59,19 +73,23 @@ $form = ActiveForm::begin([
         'columns' => <?= $generator->formColumns; ?>,
         'attributes' => [
         <?php
-        foreach ($generator->getColumnNames() as $attribute) {
-            if (in_array($attribute, $safeAttributes) && !in_array($attribute, $generator->getIgnoreFormFields())) {
-                echo " " . $generator->generateActiveField($attribute) . "\n";
+        foreach ($columnNames as $attribute) {
+            $column = $tableSchema->columns[$attribute];
+            if (in_array($column->type, ['string', 'text']) && in_array($attribute, $safeAttributes)) {
+                echo " " . $generator->generateActiveField($attribute, true) . "\n";
             }
         }
         ?>
         ]
         ]);
+        echo Html::hiddenInput('entity_id', $entityModel->id);
+
         echo Html::beginTag('div', ['class' => 'box-footer']);
         echo Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('app.c2', 'Save'), ['type' => 'button', 'class' => 'btn btn-primary pull-right']);
-        echo Html::a('<i class="fa fa-arrow-left"></i> ' . Yii::t('app.c2', 'Go Back'), ['index'], [ 'data-pjax' => '0', 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Go Back'),]);
+        echo Html::a('<i class="fa fa-arrow-left"></i> ' . Yii::t('app.c2', 'Go Back'), ['index'], [ 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Go Back'),]);
         echo Html::endTag('div');
         <?php echo "?>\n"; ?>
     </div>
 </div>
 <?php echo "<?php ActiveForm::end(); ?>\n"; ?>
+<?php echo "<?php Pjax::end(); ?>\n"; ?>

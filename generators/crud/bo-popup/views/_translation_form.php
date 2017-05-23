@@ -87,8 +87,8 @@ $form = ActiveForm::begin([
             echo Html::hiddenInput('language', $model->language);
             
             echo Html::beginTag('div', ['class' => 'box-footer']);
-            echo Html::a('<i class="fa fa-close"></i> ' . Yii::t('app.c2', 'Close'), ['index'], [ 'data-dismiss' => 'modal', 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Close'),]);
             echo Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('app.c2', 'Save'), ['type' => 'button', 'class' => 'btn btn-primary pull-right']);
+            echo Html::a('<i class="fa fa-close"></i> ' . Yii::t('app.c2', 'Close'), ['index'], [ 'data-dismiss' => 'modal', 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Close'),]);
             echo Html::endTag('div');
         <?php echo "?>\n"; ?>
 </div>

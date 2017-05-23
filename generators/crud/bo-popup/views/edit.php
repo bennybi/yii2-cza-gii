@@ -12,7 +12,7 @@ echo "<?php\n";
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use yii\widgets\Pjax;
-use backend\modules\Test\modules\UserCase\modules\Crud\modules\Cca2Popup\widgets\EntityDetail;
+use <?= StringHelper::dirname(StringHelper::dirname(ltrim($generator->controllerClass, '\\'))) . '\widgets\EntityDetail'?>;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */

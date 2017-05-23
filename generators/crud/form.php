@@ -15,6 +15,8 @@ echo $form->field($generator, 'widgetsPath');
 //]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'enablePlaceholder')->checkbox();
+echo $form->field($generator, 'withTranslationTabs')->checkbox();
+echo $form->field($generator, 'withProfileTab')->checkbox();
 echo $form->field($generator, 'formColumns');
 echo $form->field($generator, 'ignoreFormFields');
 echo $form->field($generator, 'messageCategory');

@@ -96,4 +96,12 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         return new <?= $queryClassFullName ?>(get_called_class());
     }
 <?php endif; ?>
+    
+    /**
+    * setup default values
+    **/
+    public function loadDefaultValues($skipIfSet = true) {
+        parent::loadDefaultValues($skipIfSet);
+    }
+
 }

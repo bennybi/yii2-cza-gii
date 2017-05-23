@@ -8,13 +8,16 @@ use yii\helpers\StringHelper;
 
 /* @var $model \yii\db\ActiveRecord */
 $modelClass = $generator->modelClass;
-$modelTranslationClass = $generator->modelClass . 'Lang';
+$modelProfileClass = $generator->modelClass . 'Profile';
 $model = new $modelClass();
-$transModel = new $modelTranslationClass();
+$profileModel = new $modelProfileClass();
 $safeAttributes = [];
-$entityModelSafeAttributes = $model->safeAttributes();
-$transSafeAttributes = $transModel->safeAttributes();
+$entityModelSafeAttributes = $profileModel->safeAttributes();
+$transSafeAttributes = $profileModel->safeAttributes();
 $safeAttributes = array_intersect($transSafeAttributes, $entityModelSafeAttributes);
+
+$tableSchema = $modelProfileClass::getTableSchema();
+$columnNames = $tableSchema->getColumnNames();
 
 if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
@@ -30,7 +33,6 @@ use cza\base\widgets\ui\adminlte2\InfoBox;
 use cza\base\models\statics\EntityModelStatus;
 use yii\widgets\Pjax;
 
-$regularLangName = \Yii::$app->czaHelper->getRegularLangName();
 $messageName = $model->getMessageName();
 ?>
 
@@ -38,7 +40,7 @@ $messageName = $model->getMessageName();
 
 <?php echo "<?php\n"; ?>
 $form = ActiveForm::begin([
-            'action' => ['translation-save', 'id' => $model->id],
+            'action' => ['profile-save', 'id' => $model->id],
             'options' => [
                 'id' => $model->getBaseFormName(),
                 'data-pjax' => true,
@@ -70,8 +72,7 @@ $form = ActiveForm::begin([
                 'columns' => <?= $generator->formColumns; ?>,
                 'attributes' => [
                     <?php
-                    $tableSchema = $generator->getTableSchema();
-                    foreach ($generator->getColumnNames() as $attribute) {
+                    foreach ($columnNames as $attribute) {
                         $column = $tableSchema->columns[$attribute];
                         if(in_array($column->type, ['string', 'text']) && in_array($attribute, $safeAttributes)){
                             echo " " . $generator->generateActiveField($attribute, true) . "\n";
@@ -81,7 +82,6 @@ $form = ActiveForm::begin([
                 ]
             ]);
             echo Html::hiddenInput('entity_id', $entityModel->id);
-            echo Html::hiddenInput('language', $model->language);
             
             echo Html::beginTag('div', ['class' => 'box-footer']);
             echo Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('app.c2', 'Save'), ['type' => 'button', 'class' => 'btn btn-primary pull-right']);
