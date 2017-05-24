@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => '\kartik\grid\EditableColumn',
                 'editableOptions' => [
                     'inputType' => \kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-                    'formOptions' => ['action' => Url::toRoute('editColumn')],
+                    'formOptions' => ['action' => Url::to('editColumn')],
                     'data' => EntityModelStatus::getHashMap('id', 'label'),
                     'displayValueConfig' => EntityModelStatus::getHashMap('id', 'label'),
                 ],
