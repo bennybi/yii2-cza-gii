@@ -37,7 +37,7 @@ use yii\helpers\Url;
 $messageName = $model->getMessageName();
 ?>
 
-<?php echo "<?php"; ?> Pjax::begin(['id' => $model->getPjaxName(), 'enablePushState' => false])<?php echo "?>\n"; ?>
+<?php echo "<?php"; ?> Pjax::begin(['id' => $model->getPjaxName(), 'formSelector' => $model->getBaseFormName(true), 'enablePushState' => false])<?php echo "?>\n"; ?>
 
 <?php echo "<?php\n"; ?>
 $form = ActiveForm::begin([
