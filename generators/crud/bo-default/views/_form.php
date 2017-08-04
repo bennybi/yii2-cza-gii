@@ -22,6 +22,7 @@ use kartik\builder\Form;
 use cza\base\widgets\ui\adminlte2\InfoBox;
 use cza\base\models\statics\EntityModelStatus;
 
+$regularLangName = \Yii::$app->czaHelper->getRegularLangName();
 $messageName = $model->getMessageName();
 ?>
 
