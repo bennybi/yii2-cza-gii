@@ -156,6 +156,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 e.preventDefault();
                 jQuery('#<?= $modelId ?>-modal').modal('show').find('.modal-content').html('" . Yii::t('app.c2', 'Loading...') . "').load(jQuery(e.currentTarget).attr('href'));
             });";
+            
+            $js .= "$.fn.modal.Constructor.prototype.enforceFocus = function(){};";
 
             $this->registerJs($js);
     <?= "?>" ?>
