@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 }
 ?>
 
-<?= "<?php " ?>Pjax::begin(['id' => $model->getDetailPjaxName(), 'formSelector' => $model->getBaseFormName(true), 'enablePushState' => false]) ?>
+<?= "<?php " ?>Pjax::begin(['id' => $model->getDetailPjaxName(), 'formSelector' => $model->getBaseFormName(true), 'enablePushState' => false, 'clientOptions' =>[
+    'skipOuterContainers'=>true
+]]) ?>
 
 <?= "<?php " ?>
 echo EntityDetail::widget([

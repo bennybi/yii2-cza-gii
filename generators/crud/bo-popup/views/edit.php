@@ -30,7 +30,9 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 }
 ?>
 
-<?= "<?php " ?>Pjax::begin(['id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax', 'enablePushState' => false]) ?>
+<?= "<?php " ?>Pjax::begin(['id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax', 'enablePushState' => false, 'clientOptions' =>[
+    'skipOuterContainers'=>true
+]]) ?>
 
 <div class="modal-header">
     <button type="button" class="fa fa-close close" data-dismiss="modal" aria-hidden="true"></button>
