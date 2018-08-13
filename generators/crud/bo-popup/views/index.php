@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getStatusLabel();
                 }
             ],
-            ['class' => '\kartik\grid\ActionColumn',
+            ['class' => common\widgets\grid\ActionColumn::class,
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         $title = Yii::t('app.c2', 'Update');
