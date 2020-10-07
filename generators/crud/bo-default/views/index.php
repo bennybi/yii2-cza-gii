@@ -110,6 +110,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => common\widgets\grid\ActionColumn::class,
+                'contentOptions' => ['style'=>'min-width:100px;'],
+                'template' => '{update}&nbsp;&nbsp;{delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['edit', 'id' => $model->id], [

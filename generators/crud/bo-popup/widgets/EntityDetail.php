@@ -35,5 +35,11 @@ use cza\base\widgets\ui\common\part\EntityDetail as DetailWidget;
     <?php else:?>
         public $withProfileTab = false;
     <?php endif?>
+        
+    <?php if($generator->withConfigTab): ?>
+        public $withConfigTab = true;
+    <?php else:?>
+        public $withConfigTab = false;
+    <?php endif?>
 
     }

@@ -41,7 +41,8 @@ class Generator extends \yii\gii\Generator {
     public $enableI18N = true;
     public $enablePlaceholder = true;
     public $withProfileTab = false;
-    public $withTranslationTabs = true;
+    public $withConfigTab = false;
+    public $withTranslationTabs = false;
     public $formColumns = 2;
     public $widgetsPath;
     public $ignoreFormFields = "created_by,updated_by,created_at,updated_at";
@@ -78,7 +79,7 @@ class Generator extends \yii\gii\Generator {
             [['indexWidgetType'], 'in', 'range' => ['grid', 'list']],
             [['modelClass'], 'validateModelClass'],
             [['formColumns'], 'integer'],
-            [['enablePlaceholder', 'withTranslationTabs', 'withProfileTab', 'enableI18N'], 'boolean'],
+            [['enablePlaceholder', 'withTranslationTabs', 'withProfileTab', 'withConfigTab', 'enableI18N'], 'boolean'],
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
             [['widgetsPath', 'viewPath'], 'safe'],
         ]);
@@ -98,6 +99,7 @@ class Generator extends \yii\gii\Generator {
             'enablePlaceholder' => 'Enable Input Placeholder',
             'withTranslationTabs' => 'Enable Translation Tabs, need (x)Lang model support',
             'withProfileTab' => 'Enable Profile Tab, need (x)Profile model support',
+            'withConfigTab' => 'Enable Config Tab, need (x)Config model support',
         ]);
     }
 
@@ -170,6 +172,9 @@ class Generator extends \yii\gii\Generator {
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
             if (!$this->withProfileTab && $file === '_profile_form.php') {
+                continue;
+            }
+            if (!$this->withConfigTab && $file === '_config_form.php') {
                 continue;
             }
             if (!$this->withTranslationTabs && $file === '_translation_form.php') {
