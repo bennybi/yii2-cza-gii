@@ -329,6 +329,7 @@ class Generator extends \yii\gii\Generator {
     }
 
     public function getRichtextDefintion($attribute, $isTranslation = false) {
+        \Yii::info("getRichtextDefintion: " . $isTranslation);
         if (!$isTranslation) {
             return "['type' => Form::INPUT_WIDGET, 'widgetClass' => '\\vova07\\imperavi\\Widget', 'options' => [
                     'settings' => [

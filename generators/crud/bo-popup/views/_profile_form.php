@@ -75,7 +75,7 @@ $form = ActiveForm::begin([
                     foreach ($columnNames as $attribute) {
                         $column = $tableSchema->columns[$attribute];
                         if(in_array($column->type, ['string', 'text']) && in_array($attribute, $safeAttributes)){
-                            echo " " . $generator->generateActiveField($attribute, true) . "\n";
+                            echo " " . $generator->generateActiveField($attribute, $generator->withTranslationTabs) . "\n";
                         }
                     }
                     ?>
