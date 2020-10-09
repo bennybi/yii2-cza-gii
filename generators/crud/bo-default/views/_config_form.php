@@ -42,7 +42,7 @@ $messageName = $model->getMessageName();
 
 <?php echo "<?php\n"; ?>
 $form = ActiveForm::begin([
-'action' => ['profile-save', 'id' => $model->id],
+'action' => ['config-save', 'id' => $model->id],
 'options' => [
 'id' => $model->getBaseFormName(),
 'data-pjax' => true,
@@ -69,20 +69,16 @@ $form = ActiveForm::begin([
     <div class="well">
         <?php echo "<?php\n"; ?>
         echo Form::widget([
-        'model' => $model,
-        'form' => $form,
-        'columns' => <?= $generator->formColumns; ?>,
-        'attributes' => [
-        <?php
-        foreach ($columnNames as $attribute) {
-            $column = $tableSchema->columns[$attribute];
-            if (in_array($column->type, ['string', 'text']) && in_array($attribute, $safeAttributes)) {
-                echo " " . $generator->generateActiveField($attribute, $generator->withTranslationTabs) . "\n";
-            }
-        }
-        ?>
-        ]
-        ]);
+                'model' => $model,
+                'form' => $form,
+                'columns' => <?= $generator->formColumns; ?>,
+                'attributes' => [
+                'field1' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field1')]],
+                'field2' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field2')]],
+                'field3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field3')]],
+                'field4' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field4')]],
+            ]
+            ]);
         echo Html::hiddenInput('entity_id', $entityModel->id);
 
         echo Html::beginTag('div', ['class' => 'box-footer']);

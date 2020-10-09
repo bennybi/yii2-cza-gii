@@ -41,7 +41,7 @@ $messageName = $model->getMessageName();
 
 <?php echo "<?php\n"; ?>
 $form = ActiveForm::begin([
-            'action' => ['profile-save', 'id' => $model->id],
+            'action' => ['config-save', 'id' => $model->id],
             'options' => [
                 'id' => $model->getBaseFormName(),
                 'data-pjax' => true,
@@ -72,21 +72,17 @@ $form = ActiveForm::begin([
                 'form' => $form,
                 'columns' => <?= $generator->formColumns; ?>,
                 'attributes' => [
-                    <?php
-                    foreach ($columnNames as $attribute) {
-                        $column = $tableSchema->columns[$attribute];
-                        if(in_array($column->type, ['string', 'text']) && in_array($attribute, $safeAttributes)){
-                            echo " " . $generator->generateActiveField($attribute, $generator->withTranslationTabs) . "\n";
-                        }
-                    }
-                    ?>
-                ]
+                'field1' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field1')]],
+                'field2' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field2')]],
+                'field3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field3')]],
+                'field4' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => $model->getAttributeLabel('field4')]],
+            ]
             ]);
             echo Html::hiddenInput('entity_id', $entityModel->id);
             
             echo Html::beginTag('div', ['class' => 'box-footer']);
             echo Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('app.c2', 'Save'), ['type' => 'button', 'class' => 'btn btn-primary pull-right']);
-            echo Html::a('<i class="fa fa-arrow-left"></i> ' . Yii::t('app.c2', 'Go Back'), ['index'], [ 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Go Back'),]);
+            echo Html::a('<i class="fa fa-close"></i> ' . Yii::t('app.c2', 'Close'), ['index'], ['data-dismiss' => 'modal', 'class' => 'btn btn-default pull-right', 'title' => Yii::t('app.c2', 'Close'),]);
             echo Html::endTag('div');
         <?php echo "?>\n"; ?>
 </div>

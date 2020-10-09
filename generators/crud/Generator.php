@@ -16,6 +16,7 @@ use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
+use yii\helpers\StringHelper;
 
 /**
  * Generates CRUD
@@ -38,6 +39,7 @@ class Generator extends \yii\gii\Generator {
     public $baseControllerClass = 'yii\web\Controller';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
+    public $configFormModelClass = '';
     public $enableI18N = true;
     public $enablePlaceholder = true;
     public $withProfileTab = false;
@@ -67,7 +69,7 @@ class Generator extends \yii\gii\Generator {
      */
     public function rules() {
         return array_merge(parent::rules(), [
-            [['controllerClass', 'modelClass', 'searchModelClass', 'baseControllerClass'], 'filter', 'filter' => 'trim'],
+            [['controllerClass', 'modelClass', 'searchModelClass', 'configFormModelClass', 'baseControllerClass'], 'filter', 'filter' => 'trim'],
             [['modelClass', 'controllerClass', 'baseControllerClass', 'indexWidgetType'], 'required'],
             [['searchModelClass'], 'compare', 'compareAttribute' => 'modelClass', 'operator' => '!==', 'message' => 'Search Model Class must not be equal to Model Class.'],
             [['modelClass', 'controllerClass', 'baseControllerClass', 'searchModelClass'], 'match', 'pattern' => '/^[\w\\\\]*$/', 'message' => 'Only word characters and backslashes are allowed.'],
@@ -96,6 +98,7 @@ class Generator extends \yii\gii\Generator {
             'baseControllerClass' => 'Base Controller Class',
             'indexWidgetType' => 'Widget Used in Index Page',
             'searchModelClass' => 'Search Model Class',
+            'configFormModelClass' => 'Config Model Class',
             'enablePlaceholder' => 'Enable Input Placeholder',
             'withTranslationTabs' => 'Enable Translation Tabs, need (x)Lang model support',
             'withProfileTab' => 'Enable Profile Tab, need (x)Profile model support',
@@ -123,6 +126,7 @@ class Generator extends \yii\gii\Generator {
                 You may choose either <code>GridView</code> or <code>ListView</code>',
             'searchModelClass' => 'This is the name of the search model class to be generated. You should provide a fully
                 qualified namespaced class name, e.g., <code>app\models\PostSearch</code>.',
+            'configFormModelClass' => 'Config Form Model',
             'ignoreFormFields' => 'These fields will not be generated in form, it is seperated by comma',
         ]);
     }
@@ -168,6 +172,11 @@ class Generator extends \yii\gii\Generator {
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
 
+        if (!empty($this->configFormModelClass)) {
+            $configFormModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->configFormModelClass, '\\') . '.php'));
+            $files[] = new CodeFile($configFormModel, $this->render('BoEntityConfig.php'));
+        }
+
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
@@ -181,6 +190,9 @@ class Generator extends \yii\gii\Generator {
                 continue;
             }
             if (empty($this->searchModelClass) && $file === '_search.php') {
+                continue;
+            }
+            if (empty($this->configFormModelClass) && $file === 'BoEntityConfig.php') {
                 continue;
             }
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
@@ -251,8 +263,8 @@ class Generator extends \yii\gii\Generator {
 
         return $pk[0];
     }
-    
-    public function getIgnoreFormFields(){
+
+    public function getIgnoreFormFields() {
         return explode(',', $this->ignoreFormFields);
     }
 
@@ -329,7 +341,6 @@ class Generator extends \yii\gii\Generator {
     }
 
     public function getRichtextDefintion($attribute, $isTranslation = false) {
-        \Yii::info("getRichtextDefintion: " . $isTranslation);
         if (!$isTranslation) {
             return "['type' => Form::INPUT_WIDGET, 'widgetClass' => '\\vova07\\imperavi\\Widget', 'options' => [
                     'settings' => [

@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $generator->generateUrlParams() ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 }
+$showTab = isset($showTab) ? $showTab : EntityDetail::TAB_BASE;
 ?>
 
 <?= "<?php " ?>Pjax::begin(['id' => $model->getDetailPjaxName(), 'formSelector' => $model->getBaseFormName(true), 'enablePushState' => false, 'clientOptions' =>[
@@ -37,6 +38,7 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 echo EntityDetail::widget([
     'model' => $model,
     'tabTitle' =>  $this->title,
+    'showTab' => $showTab,
 ]);
 ?>
 
