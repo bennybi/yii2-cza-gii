@@ -69,6 +69,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             'query' => $query,
             'sort' => [
                 'sortParam' => $this->getSortParamName(),
+                'defaultOrder' => ['position' => SORT_DESC],
             ],
             'pagination' => [
                 'pageParam' => $this->getPageParamName(),
