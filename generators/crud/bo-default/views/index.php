@@ -111,12 +111,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => common\widgets\grid\ActionColumn::class,
                 'contentOptions' => ['style'=>'min-width:100px;'],
-                'template' => '{update}&nbsp;&nbsp;{delete}',
+                'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['edit', 'id' => $model->id], [
                                     'title' => Yii::t('app', 'Info'),
                                     'data-pjax' => '0',
+                                    'class' => 'btn-split update'
                         ]);
                     }
                         ]

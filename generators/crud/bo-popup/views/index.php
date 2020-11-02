@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['class' => common\widgets\grid\ActionColumn::class,
                 'contentOptions' => ['style'=>'min-width:100px;'],
-                'template' => '{update}&nbsp;&nbsp;{delete}',
+                'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         $title = Yii::t('app.c2', 'Update');
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => $title,
                                     'aria-label' => $title,
                                     'data-pjax' => '0',
-                                    'class' => 'update'
+                                    'class' => 'btn-split update'
                         ]);
                     },
                 ],
