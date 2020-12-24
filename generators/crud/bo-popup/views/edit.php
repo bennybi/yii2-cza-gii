@@ -36,7 +36,7 @@ $showTab = isset($showTab) ? $showTab : EntityDetail::TAB_BASE;
 ]]) ?>
 
 <div class="modal-header">
-    <button type="button" class="fa fa-close fa-lg close" data-dismiss="modal" aria-hidden="true"></button>
+    <button type="button" class="fa fa-window-close fa-lg close" data-dismiss="modal" aria-hidden="true"></button>
     <button type="button" class="fa fa-window-maximize fa-lg close"></button>
 <!--    <i class="fa fa-cube"></i>-->
 </div>
