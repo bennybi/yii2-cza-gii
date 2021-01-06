@@ -66,8 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'kartik\grid\SerialColumn'],
             [
                 'class' => 'kartik\grid\ExpandRowColumn',
-                'expandIcon' => '<span class="fa fa-plus-square-o"></span>',
-                'collapseIcon' => '<span class="fa fa-minus-square-o"></span>',
+                'expandIcon' => '<span class="fa fa-plus-square"></span>',
+                'collapseIcon' => '<span class="fa fa-minus-square"></span>',
                 'detailUrl' => Url::toRoute(['detail']),
                 'value' => function ($model, $key, $index, $column) {
                     return GridView::ROW_COLLAPSED;
