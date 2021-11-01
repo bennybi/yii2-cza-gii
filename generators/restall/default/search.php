@@ -73,11 +73,11 @@ class <?= $searchModelClass ?> extends BaseModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
+                'enableMultiSort' => true,
                 'sortParam' => $this->getSortParamName(),
             ],
             'pagination' => [
                 'pageParam' => $this->getPageParamName(),
-                'pageSize' => 20,
             ],
         ]);
 

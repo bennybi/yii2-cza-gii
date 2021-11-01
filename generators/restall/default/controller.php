@@ -12,7 +12,7 @@ $restModelClass = $generator->restNs . '\\' . $generator->generateRestClassName(
 
 namespace <?= $generator->getControllerNamespace() ?>;
 
-use common\rest\controllers\ActiveController as BaseModel;
+use common\rest\controllers\SimpleBearerActiveController as BaseModel;
 use <?= $restModelClass ?>;
 
 /**

@@ -17,6 +17,7 @@ namespace <?= $generator->restNs ?>;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\web\Linkable;
 use <?= '\\' . ltrim($generator->generateRestBaseClassName($modelClass), '\\') ?> as BaseModel;
 
 /**
@@ -63,8 +64,10 @@ endif; ?>
 <?php endforeach; ?>
 <?php endif; ?>
  */
-class <?= $className ?> extends BaseModel
-{
+class <?= $className ?> extends BaseModel implements Linkable {
+
+    use \common\rest\traits\EntityModelTrait;
+    
     public function rules() {
         return ArrayHelper::merge(parent::rules(), []);
     }

@@ -66,13 +66,13 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
         $dataProvider = new ActiveDataProvider([
+            'enableMultiSort' => true,
             'query' => $query,
             'sort' => [
                 'sortParam' => $this->getSortParamName(),
             ],
             'pagination' => [
                 'pageParam' => $this->getPageParamName(),
-                'pageSize' => 20,
             ],
         ]);
 
